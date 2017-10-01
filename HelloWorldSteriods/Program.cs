@@ -17,7 +17,7 @@ namespace HelloWorldSteriods
 
         private static Joke GetJoke()
         {
-            var request = HttpWebRequest.Create("https://api.chucknorris.io/jokes/random");
+            var request = (HttpWebRequest)WebRequest.Create("https://api.chucknorris.io/jokes/random");
             var response = request.GetResponse();
             using (var stream = new StreamReader(response.GetResponseStream()))
             {
