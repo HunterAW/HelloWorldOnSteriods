@@ -12,6 +12,7 @@ namespace HelloWorldSteriods
             var joke =GetJoke();
             Console.WriteLine(joke.Value);
             Speak(joke.Value);
+            Console.ReadLine();
         }
 
         private static Joke GetJoke()
@@ -26,7 +27,6 @@ namespace HelloWorldSteriods
             var syn = new SpeechSynthesizer();
             syn.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Adult);
             syn.Speak(textToSpeak);
-            Console.ReadLine();
         }
     }
 }
