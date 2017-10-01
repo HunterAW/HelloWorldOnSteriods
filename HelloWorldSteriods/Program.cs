@@ -12,6 +12,7 @@ namespace HelloWorldSteriods
         static void Main(string[] args)
         {
             var joke =GetJoke();
+            Console.WriteLine(joke.Value);
             Speak(joke.Value);
         }
 
