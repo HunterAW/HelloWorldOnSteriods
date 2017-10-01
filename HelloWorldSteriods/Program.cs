@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Speech.Synthesis;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace HelloWorldSteriods
@@ -14,6 +15,12 @@ namespace HelloWorldSteriods
             var joke = GetJoke();
             Console.WriteLine(joke.Value);
             Speak(joke.Value);
+            Console.WriteLine("Press any key for the next joke");
+            Console.ReadLine();
+
+            var asyncJoke = GetJokeAsync().Result;
+            Console.WriteLine(asyncJoke.Value);
+            Speak(asyncJoke.Value);
             Console.ReadLine();
         }
 
@@ -21,6 +28,13 @@ namespace HelloWorldSteriods
         {
             var client = new WebClient();
             var str = client.DownloadString(Address);
+            return JsonConvert.DeserializeObject<Joke>(str);
+        }
+
+        private static async Task<Joke> GetJokeAsync()
+        {
+            var client = new WebClient();
+            var str = await client.DownloadStringTaskAsync(Address);
             return JsonConvert.DeserializeObject<Joke>(str);
         }
 
