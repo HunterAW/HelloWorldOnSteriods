@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Speech.Synthesis;
-using Newtonsoft;
 using Newtonsoft.Json;
 
 namespace HelloWorldSteriods
@@ -18,19 +16,15 @@ namespace HelloWorldSteriods
 
         private static Joke GetJoke()
         {
-            var request = (HttpWebRequest)WebRequest.Create("https://api.chucknorris.io/jokes/random");
-            var response = request.GetResponse();
-            using (var stream = new StreamReader(response.GetResponseStream()))
-            {
-                var jokeStr = stream.ReadToEnd();
-                return JsonConvert.DeserializeObject<Joke>(jokeStr);
-            }
+            var client = new WebClient();
+            var str = client.DownloadString("https://api.chucknorris.io/jokes/random");
+            return JsonConvert.DeserializeObject<Joke>(str);
         }
 
         private static void Speak(string textToSpeak)
         {
             var syn = new SpeechSynthesizer();
-            syn.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Senior);
+            syn.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Adult);
             syn.Speak(textToSpeak);
             Console.ReadLine();
         }
