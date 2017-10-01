@@ -7,9 +7,11 @@ namespace HelloWorldSteriods
 {
     class Program
     {
+        private const string Address = "https://api.chucknorris.io/jokes/random";
+
         static void Main(string[] args)
         {
-            var joke =GetJoke();
+            var joke = GetJoke();
             Console.WriteLine(joke.Value);
             Speak(joke.Value);
             Console.ReadLine();
@@ -18,7 +20,7 @@ namespace HelloWorldSteriods
         private static Joke GetJoke()
         {
             var client = new WebClient();
-            var str = client.DownloadString("https://api.chucknorris.io/jokes/random");
+            var str = client.DownloadString(Address);
             return JsonConvert.DeserializeObject<Joke>(str);
         }
 
